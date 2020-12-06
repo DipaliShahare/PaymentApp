@@ -1,0 +1,52 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" style="margin-top: 25px;">
+  <div >
+    <button mat-raised-button color="primary" routerLink="/dashboard" style="width: 120px;">Home</button>
+  </div>
+  <section fxLayout 
+  fxLayoutAlign="center center" >
+    <mat-card class="example-card" fxLayout="column" fxLayoutAlign="center center">
+      <mat-card-header>
+        <mat-card-title>Card Details</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form fxLayout="column" 
+        fxLayoutAlign="center center"
+        [formGroup]="paymentForm"
+        (ngSubmit)="onPay()">
+          <mat-form-field class="customWidth">
+            <mat-label>Card Number</mat-label>
+            <input type="text" matInput placeholder="Enter Valid Card Number" formControlName="cardNumber"/>
+          </mat-form-field>
+          <mat-form-field class="customWidth">
+            <mat-label>Card Name</mat-label>
+            <input type="text" matInput placeholder="Enter Name on Card" formControlName="cardName"/>
+          </mat-form-field>
+          <mat-form-field class="customWidth">
+            <mat-label>Valid Through</mat-label>
+            <input matInput [matDatepicker]="dp" [min]="minDate" placeholder="mm/yy" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp
+                            startView="multi-year"
+                            (yearSelected)="chosenYearHandler($event)"
+                            (monthSelected)="chosenMonthHandler($event, dp)"
+                            panelClass="example-month-picker">
+            </mat-datepicker>
+          </mat-form-field>
+          <!-- <mat-form-field>
+            <mat-label>Valid Through</mat-label>
+            <input type="date" matInput placeholder="mm/yy" formControlName="validThrough"/>
+          </mat-form-field> -->
+          <mat-form-field class="customWidth">
+            <mat-label>CVV</mat-label>
+            <input type="number" matInput placeholder="CVV" formControlName="cvv"/>
+          </mat-form-field>
+          <mat-form-field class="customWidth">
+            <mat-label>Amount</mat-label>
+            <input type="number" matInput placeholder="Amount" formControlName="amount"/>
+          </mat-form-field>
+          <button mat-raised-button color="accent" [disabled]="paymentForm.invalid" type="submit">Pay</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</div>
